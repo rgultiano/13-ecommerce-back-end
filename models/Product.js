@@ -20,7 +20,7 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    mpriceodel: {
+    price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate:{

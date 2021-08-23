@@ -3,28 +3,28 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
-  const categoryData = await Tag.findAll({
+  const categoryData = await Category.findAll({
     include: [{ model: Product}],
   });
 
   res.json(categoryData);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try{
-    const tagData = await Category.findByPk(req.params.id, {
+    const categoryData = await Category.findByPk(req.params.id, {
       include: [{model: Product}],
     });
 
-    if(!tagData){
+    if(!categoryData){
       res.status(404).json({message: `No category found with an id of '${req.params.id}'.`});
     } else {
-      res.status(200).json(tagData);
+      res.status(200).json(categoryData);
     }
   } catch (err) {
     res.status(500).json(err);
@@ -35,10 +35,10 @@ router.post('/', (req, res) => {
   // create a new category
   Category.create(req.body)
     .then((newCategory) => {
-      res.json(newCategory);
+      res.status(200).json(newCategory);
     })
     .catch((err) => {
-      res.json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -49,10 +49,15 @@ router.put('/:id', (req, res) => {
       id: req.params.id,
     },
   })
-    .then((updatedCategory) => {
-      // Sends the updated book as a json response
-      res.json(updatedCategory);
-    })
+  .then(async () => {
+    // return the tag object with associations
+    res.status(200).json(await Category.findByPk(
+      req.params.id, 
+      {
+        include: [{ model: Product}],
+      })
+    );
+  })
     .catch((err) => res.json(err));
 });
 
