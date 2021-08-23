@@ -12,7 +12,7 @@ The back end for an e-commerce site
 
 
 ## Recording
-Recording of the API working can be found here: https://drive.google.com/file/d/1R1XJq_DoZ_Uy1WDKKf7YbqmWXYNhIZlD/view
+Recording of the API working can be found here: https://drive.google.com/file/d/1i6JbUN8e-XKvpX2sLMJTeNqW2FxOWM_-/view
 
 ## Technologies
 Project is created with:
